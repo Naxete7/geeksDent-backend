@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
-           
-            $table->unsignedBigInteger('doctorsId');
             $table->unsignedBigInteger('treatmentsId');
+            $table->unsignedBigInteger('doctorsId');
 
-            $table->foreign('doctorsId')->references('id')->on('doctors');
             $table->foreign('treatmentsId')->references('id')->on('treatments');
+            $table->foreign('doctorsId')->references('id')->on('doctors');
         });
     }
 
