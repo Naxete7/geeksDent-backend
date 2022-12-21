@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('patientsId');
+            $table->unsignedBigInteger('usersId');
             //$table->unsignedBigInteger('doctorsId');
 
-            $table->foreign('patientsId')->references('id')->on('patients');
+            $table->foreign('usersId')->references('id')->on('users');
             //$table->foreign('doctorsId')->references('id')->on('doctors');
         });
     }

@@ -9,9 +9,9 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    public function patients()
+    public function users()
     {
-        return $this->hasMany(Patient::class);
+        return $this->hasMany(User::class);
     }
 
     public function doctors()

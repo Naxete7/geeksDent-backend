@@ -10,8 +10,8 @@ class Treatment extends Model
     use HasFactory;
 
 
-    public function patients(){
-        return $this->hasMany(Patient::class);
+    public function users(){
+        return $this->hasMany(User::class);
     }
 
     //public function doctors(){
