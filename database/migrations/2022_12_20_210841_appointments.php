@@ -19,11 +19,11 @@ return new class extends Migration
         $table->string('duration');
         $table->unsignedBigInteger('patientsId');
         $table->unsignedBigInteger('doctorsId');
-        $table->unsignedBigInteger('treatmentsId');
+        //$table->unsignedBigInteger('treatmentsId');
 
         $table->foreign('patientsId')->references('id')->on('patients');
         $table->foreign('doctorsId')->references('id')->on('doctors');
-        $table->foreign('treatmentsId')->references('id')->on('treatments');
+        //$table->foreign('treatmentsId')->references('id')->on('treatments');
        });
     }
 

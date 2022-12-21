@@ -19,8 +19,8 @@ class Appointment extends Model
         return $this->hasMany(Doctor::class);
     }
 
-    public function treatments()
-    {
-        return $this->hasMany(Treatment::class);
-    }
+    //public function treatments()
+    //{
+    //    return $this->hasMany(Treatment::class);
+    //}
 }

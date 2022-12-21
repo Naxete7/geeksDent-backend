@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('patientsId');
-            $table->unsignedBigInteger('doctorsId');
+            //$table->unsignedBigInteger('doctorsId');
 
             $table->foreign('patientsId')->references('id')->on('patients');
-            $table->foreign('doctorsId')->references('id')->on('doctors');
+            //$table->foreign('doctorsId')->references('id')->on('doctors');
         });
     }
 

@@ -14,7 +14,7 @@ class Treatment extends Model
         return $this->hasMany(Patient::class);
     }
 
-    public function doctors(){
-        return $this->hasMany(Doctor::class);
-    }
+    //public function doctors(){
+    //    return $this->hasMany(Doctor::class);
+    //}
 }
