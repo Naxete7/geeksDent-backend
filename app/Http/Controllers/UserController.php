@@ -12,14 +12,40 @@ class UserController extends Controller
 {
 
 
+     public function getAllUsers()
+    {
+        try {
+            $users = User::get();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Users successfully retrieved',
+                'data' => $users
+            ]);
+        } catch (\Throwable $th) {
+            Log::error("Error retrieving users: " . $th->getMessage());
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Users could not be retrieved'
+            ], 500);
+        }
+    }
+
     public function updateUser(Request $request)
     {
         try {
+
             $userId = auth()->user()->id;
+           
 
             $validator = Validator::make($request->all(), [
-                'name' => 'required|max:255',
-
+                
+                'name' => 'string|max:255',
+                'surname' => 'string|max:255',
+                'phone' => 'string|min:8',
+                'birth_date' => 'date',
+                
             ]);
 
             if ($validator->fails()) {
@@ -31,19 +57,28 @@ class UserController extends Controller
 
             $user = User::find($userId);
             $user->name = $request->input('name');
-
+            $user->surname = $request->input('surname');
+            $user->phone = $request->input('phone');
+            $user->birth_date = $request->input('birth_date');
             $user->save();
 
             return response([
                 'success' => true,
                 'message' => 'Player data modified correctly.'
             ], 200);
+
         } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+            //Log::error($th->getMessage());
             return response([
                 'success' => false,
                 'message' => 'Error when modifying player data' . $th->getMessage()
             ], 500);
         }
+
     }
+
+    
+
+
+
 }

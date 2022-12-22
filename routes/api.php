@@ -33,4 +33,8 @@ Route::group([
 
 //USERS
 
-Route::put('/updateUser/{id}', [UserController::class, 'updateUser']);
+Route::put('/updateUser', [UserController::class,'updateUser']);
+
+
+//ADMIN
+Route::get('/users', [UserController::class, 'getAllUsers']);

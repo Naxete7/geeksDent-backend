@@ -13,14 +13,14 @@ class AuthController extends Controller
     // Iremos añadiendo cada uno de los métodos
 
     public function register(Request $request)
-    {
+    { 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|min:8',
-            'birth date'=>'required|'
+            'birth_date'=>'required|'
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->messages(), 400);
@@ -31,7 +31,7 @@ class AuthController extends Controller
             'email' => $request->get('email'),
             'password' => bcrypt($request->password),
             'phone'=>$request->get('phone'),
-            'birth date'=>$request->get('birth date')
+            'birth_date'=>$request->get('birth_date')
 
         ]);
         $token = JWTAuth::fromUser($user);
@@ -63,7 +63,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-
+        
         try {
             auth()->logout();
             return response()->json([
