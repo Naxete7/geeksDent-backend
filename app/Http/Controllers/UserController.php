@@ -16,12 +16,21 @@ class UserController extends Controller
     {
         try {
             $users = User::get();
+if(auth()->user()->userRol != 2) {
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Users successfully retrieved',
-                'data' => $users
-            ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Users successfully retrieved',
+        'data' => $users
+    ]);
+} else {
+    return response()->json([
+
+        'succes'=>false,
+        'message'=>'Admin is unic view all profile'
+    ],400);
+}
         } catch (\Throwable $th) {
             Log::error("Error retrieving users: " . $th->getMessage());
 

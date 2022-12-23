@@ -11,6 +11,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
     // Iremos añadiendo cada uno de los métodos
+    //const USER_ROLE_ID = 2;
 
     public function register(Request $request)
     { 
@@ -34,6 +35,8 @@ class AuthController extends Controller
             'birth_date'=>$request->get('birth_date')
 
         ]);
+
+        //$user->roles()->attach(self::USER_ROLE_ID);
         $token = JWTAuth::fromUser($user);
         return response()->json(compact('user', 'token'), 201);
     }
