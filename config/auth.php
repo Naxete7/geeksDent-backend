@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -36,9 +36,10 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users', 
+            //si no funciona cambiar users por patients, si sigue sin funcionar cambiar migraciones y modelos a users
         ],
     ],
 
