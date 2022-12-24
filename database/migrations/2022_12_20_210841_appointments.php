@@ -18,12 +18,13 @@ return new class extends Migration
         $table->date('date');
         $table->string('duration');
         $table->unsignedBigInteger('usersId');
-        $table->unsignedBigInteger('doctorsId');
+        //$table->unsignedBigInteger('doctorsId');
         //$table->unsignedBigInteger('treatmentsId');
 
         $table->foreign('usersId')->references('id')->on('users');
-        $table->foreign('doctorsId')->references('id')->on('doctors');
-        //$table->foreign('treatmentsId')->references('id')->on('treatments');
+        //$table->foreign('doctorsId')->references('id')->on('doctors');
+            //$table->foreign('treatmentsId')->references('id')->on('treatments');
+            $table->timestamps();
        });
     }
 

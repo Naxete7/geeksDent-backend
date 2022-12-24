@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,14 @@ Route::put('/updateUser', [UserController::class,'updateUser']);
 
 //ADMIN
 Route::get('/users', [UserController::class, 'getAllUsers']);
+
+
+
+//APPOINTMENTS
+
+Route::group([
+    'middleware' => 'jwt.auth'
+], function () {
+    Route::post('/addAppointment', [AppointmentController::class, 'addAppointment']);
+    Route::get('/appointments', [AppointmentController::class, 'appointments']);
+});
