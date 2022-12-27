@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppointmentController;
@@ -38,8 +39,13 @@ Route::put('/updateUser', [UserController::class,'updateUser']);
 
 
 //ADMIN
-Route::get('/users', [UserController::class, 'getAllUsers']);
-Route::get('/appointments',[AppointmentController::class, 'getAllApointments']);
+Route::group([
+    'middleware' => 'admin.auth'
+], function () {
+    Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/users', [AdminController::class, 'users']);
+    Route::get('/appointments', [AdminController::class, 'appointments']);
+});
 
 
 

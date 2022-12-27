@@ -12,34 +12,7 @@ class UserController extends Controller
 {
 
 
-     public function getAllUsers()
-    {
-        try {
-            $users = User::get();
-if(auth()->user()->userRol === 1) {
-
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Users successfully retrieved',
-        'data' => $users
-    ]);
-} else {
-    return response()->json([
-
-        'succes'=>false,
-        'message'=>'Admin is unic view all profile'
-    ],400);
-}
-        } catch (\Throwable $th) {
-            Log::error("Error retrieving users: " . $th->getMessage());
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Users could not be retrieved'
-            ], 500);
-        }
-    }
+ 
 
     public function updateUser(Request $request)
     {
