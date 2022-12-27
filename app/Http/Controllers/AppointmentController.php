@@ -23,11 +23,13 @@ class AppointmentController extends Controller{
             //$doctorId= doctor()-> doctorId;
             $date = $request->input('date');
             $duration = $request->input('duration');
+            $description=$request->input('description');
 
 
             $newAppointment = new Appointment();
             $newAppointment->date = $date;
             $newAppointment->duration = $duration;
+            $newAppointment->description=$description;
             $newAppointment->usersId = $userId;
             //$newAppointment->doctorssId = $doctorId;
             $newAppointment->save();
@@ -46,4 +48,28 @@ class AppointmentController extends Controller{
         }
     }
 
-}
+    public function myAppointments ()
+    {
+            try{
+                $userId=auth()->user()->id;
+
+                $appointment=User::select('users.id')
+                ->with('appointment: date, duration, description')
+                ->find($userId);
+
+                return response()->json([
+                    "succes"=>true,
+                    "message"=> "Get appointments succesfully",
+                    "data"=> $appointment
+                ],200);
+            }catch(\Throwable $th){
+
+                return response()->json([
+                    "succes"=> false,
+                    "message"=> "Error getting appointments" . $th->getMessage()
+                ], 500);
+            }
+
+    }
+
+    }

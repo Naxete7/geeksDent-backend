@@ -17,6 +17,7 @@ return new class extends Migration
         $table->id();
         $table->date('date');
         $table->string('duration');
+        $table->string('description');
         $table->unsignedBigInteger('usersId');
         //$table->unsignedBigInteger('doctorsId');
         //$table->unsignedBigInteger('treatmentsId');

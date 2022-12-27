@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         try {
             $users = User::get();
-if(auth()->user()->userRol != 2) {
+if(auth()->user()->userRol === 1) {
 
 
     return response()->json([
