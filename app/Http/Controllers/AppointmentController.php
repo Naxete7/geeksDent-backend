@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -53,72 +54,70 @@ class AppointmentController extends Controller
     public function myAppointments()
     {
         try {
-            $userId = auth()->user()->id;
-           
+            $usersId = auth()->user()->id;
+            $user=User::find($usersId);
 
-            $appointments = DB::table('appointments')
-            ->join('appointments','userId','=','appointment.userId')
-            ->select('users.*','date')
-            ->get();
+            $myAppointments = $user->appointments()->where('usersId', $usersId)->get();
 
-            return response()->json([
-                "succes" => true,
-                "message" => "Get appointments succesfully",
-                "data" => $appointments
-            ], 200);
+            if (auth()->user()->role == 2) {
+
+                return response()->json([
+                    'succes' => true,
+                    'message' => 'Appointments succesfully retrieved',
+                    'data' => $myAppointments 
+
+                ], 200);
+            } else {
+                return response()->json([
+                    'succes' => false,
+                    'message' => 'Admin is unic wiew all appointments'
+                ], 400);
+            }
         } catch (\Throwable $th) {
 
+            Log::error("Error retrieving users: " . $th->getMessage());
+
             return response()->json([
-                "succes" => false,
-                "message" => "Error getting appointments" . $th->getMessage()
+                'succes' => true,
+                'message' => 'Appointments could not be retrieved' . $th->getMessage()
             ], 500);
         }
     }
 
-    //public function myAppointments()
-    //{
-    //    try {
-    //        $userId = auth()->user()->id;
-    //        $user=User::find($userId);
 
-    //        $myAppointments = $user->appointments()->get();
+    //public function myAppointments(){
 
-    //        if (auth()->user()->role == 2) {
+    //    try{
+    //        $usersId=auth()->user()->id;
+
+    //        $appointments= Appointment::query()
+    //            ->where('usersId','=',$usersId)
+    //            ->get()
+    //            ->toArray();
+
+    //        $appointments=DB::table('appointments')
+    //            ->join('users','users.id','=','appointments.usersId')
+    //            ->select('users.name', 'appointments.date')
+    //            ->get();
+
+    //            $appointments=User::find($usersId)->appointment;
+
     //            return response()->json([
-    //                'succes' => true,
-    //                'message' => 'Appointments succesfully retrieved',
-    //                'data' => $myAppointments
-    //            ], 200);
-    //        } else {
-    //            return response()->json([
-    //                'succes' => false,
-    //                'message' => 'Admin is unic wiew all appointments'
-    //            ], 400);
-    //        }
-    //    } catch (\Throwable $th) {
+    //                "succes"=>true,
+    //                "message"=>"get appointments succesfully",
+    //                "data"=>$appointments
 
-    //        Log::error("Error retrieving users: " . $th->getMessage());
+    //            ],200);
+
+    //    } catch(\Throwable $th){
 
     //        return response()->json([
-    //            'succes' => true,
-    //            'message' => 'Appointments could not be retrieved' . $th->getMessage()
-    //        ], 500);
+    //            "succes"=>false,
+    //            "message"=> "error getting appointments" . $th->getMessage()
+    //        ],500);
     //    }
+
     //}
+    
 
-
-
-    //public function myAppointments($userId)
-    //{
-    //    try {
-    //        $appointments = Appointment::where("user_id", "=", $userId)->select('id as _id','date', 'description', 'user_id as userId')->get();
-    //        return response()->json($appointments);
-    //    } catch (\Illuminate\Database\QueryException $e) {
-
-    //        return response()->json([
-    //            'error' => "no se encontro ningun resultado",
-    //            'errorCode' => "mostrar_cita_1"
-    //        ], 500);
-    //    }
-    //}
 }

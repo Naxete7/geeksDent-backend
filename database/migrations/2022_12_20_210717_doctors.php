@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('doctors', function(Blueprint $table){
             $table->id();
             $table->string('name');
+            $table->string('especialidad');
             $table->timestamps();
             //$table->unsignedBigInteger('traetmentsId');
             //$table->foreign('treatmentsId')->references('id')->on('treatments');
