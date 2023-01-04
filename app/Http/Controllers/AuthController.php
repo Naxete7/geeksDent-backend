@@ -55,7 +55,7 @@ class AuthController extends Controller
         $input = $request->only('email', 'password');
         $jwt_token = null;
         $validation = JWTAuth::attempt($input);
-        dd($validation);
+        //dd($validation);
         if (!$validation) {
             return response()->json([
                 'success' => false,
@@ -66,6 +66,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'message'=>"Logged is succesfully",
+            //"user"=>$email,
             'token' => $validation,
         ]);
         } catch (\Throwable $th) {

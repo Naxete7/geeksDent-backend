@@ -23,11 +23,15 @@ use Illuminate\Support\Facades\Route;
 //});
 
 //AUTH
-
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
 Route::group([
-    'middleware' => 'jwt.auth'
+    'middleware'=> 'cors'
+], function(){
+
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+});
+Route::group([
+    'middleware' => ['jwt.auth', 'cors']
 ], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
