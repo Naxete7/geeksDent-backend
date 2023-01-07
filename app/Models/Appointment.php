@@ -24,13 +24,13 @@ class Appointment extends Model
         return $this->hasMany(User::class);
     }
 
-    public function doctors()
-    {
-        return $this->hasMany(Doctor::class);
-    }
-
-    //public function treatments()
+    //public function doctors()
     //{
-    //    return $this->hasMany(Treatment::class);
+    //    return $this->hasMany(Doctor::class);
     //}
+
+    public function treatments()
+    {
+        return $this->hasMany(Treatment::class);
+    }
 }

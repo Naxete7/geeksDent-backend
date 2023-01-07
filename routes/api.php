@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppointmentController;
@@ -22,14 +23,18 @@ use Illuminate\Support\Facades\Route;
 //});
 
 //AUTH
-
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
 Route::group([
-    'middleware' => 'jwt.auth'
+    'middleware'=> 'cors'
+], function(){
+
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+});
+Route::group([
+    'middleware' => ['jwt.auth', 'cors']
 ], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/profile', [AuthController::class, 'profile']);
 });
 
 //USERS
@@ -38,8 +43,13 @@ Route::put('/updateUser', [UserController::class,'updateUser']);
 
 
 //ADMIN
-Route::get('/users', [UserController::class, 'getAllUsers']);
-Route::get('/appointments',[AppointmentController::class, 'getAllApointments']);
+Route::group([
+    'middleware' => 'admin.auth'
+], function () {
+    Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/users', [AdminController::class, 'users']);
+    Route::get('/appointments', [AdminController::class, 'appointments']);
+});
 
 
 
