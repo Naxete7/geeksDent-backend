@@ -51,38 +51,40 @@ class AppointmentController extends Controller
         }
     }
 
-    public function myAppointments()
-    {
-        try {
-            $usersId = auth()->user()->id;
-            $user=User::find($usersId);
+    //public function myAppointments()
+    //{
+    //    try {
+    //        $usersId = auth()->user()->id;
+    //        $user=User::find($usersId);
 
-            $myAppointments = $user->appointments()->where('usersId', $usersId)->get();
+    //        $myAppointments = $user->appointments()->where('usersId', $usersId)
+    //        ->select('appointments.id')
+    //        ->get();
 
-            if (auth()->user()->role == 2) {
+    //        if (auth()->user()->role == 2) {
 
-                return response()->json([
-                    'succes' => true,
-                    'message' => 'Appointments succesfully retrieved',
-                    'data' => $myAppointments 
+    //            return response()->json([
+    //                'succes' => true,
+    //                'message' => 'Appointments succesfully retrieved',
+    //                'data' => $myAppointments 
 
-                ], 200);
-            } else {
-                return response()->json([
-                    'succes' => false,
-                    'message' => 'Admin is unic wiew all appointments'
-                ], 400);
-            }
-        } catch (\Throwable $th) {
+    //            ], 200);
+    //        } else {
+    //            return response()->json([
+    //                'succes' => false,
+    //                'message' => 'Admin is unic wiew all appointments'
+    //            ], 400);
+    //        }
+    //    } catch (\Throwable $th) {
 
-            Log::error("Error retrieving users: " . $th->getMessage());
+    //        Log::error("Error retrieving users: " . $th->getMessage());
 
-            return response()->json([
-                'succes' => true,
-                'message' => 'Appointments could not be retrieved' . $th->getMessage()
-            ], 500);
-        }
-    }
+    //        return response()->json([
+    //            'succes' => true,
+    //            'message' => 'Appointments could not be retrieved' . $th->getMessage()
+    //        ], 500);
+    //    }
+    //}
 
 
     //public function myAppointments(){
@@ -118,6 +120,63 @@ class AppointmentController extends Controller
     //    }
 
     //}
-    
+
+
+    //public function myappointments()
+    //{
+    //    try {
+    //        //auth()->user()->userId==6;
+    //        $appointments = Appointment::get();
+
+    //        if
+    //        (auth()->user()->role == 2) {
+    //            return response()->json([
+    //                'succes' => true,
+    //                'message' => 'Appointments succesfully retrieved',
+    //                'data' => $appointments
+    //            ], 200);
+    //        } else {
+    //            return response()->json([
+    //                'succes' => false,
+    //                'message' => 'Admin is unic wiew all appointments'
+    //            ], 400);
+    //        }
+    //    } catch (\Throwable $th) {
+
+    //        Log::error("Error retrieving users: " . $th->getMessage());
+
+    //        return response()->json([
+    //            'succes' => true,
+    //            'message' => 'Appointments could not be retrieved' . $th->getMessage()
+    //        ], 500);
+    //    }
+    //}
+
+    public function myAppointments()
+    {
+        Log::info('Getttin Appointments');
+        try {
+            $usersId = auth()->user()->id;
+
+
+            $appointments = Appointment::select('id', 'appointments.date', 'appointments.description', 'appointments.usersId')
+            ->with('users:id,name')
+            ->find($usersId);
+
+            return response()->json([
+                "success" => true,
+                "message" => "Get Appointments successfully",
+                "data" => $appointments
+            ], 200);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json([
+                "success" => false,
+                "message" => "Error getting appointments" . $th->getMessage()
+            ], 500);
+        }
+    }
+
 
 }

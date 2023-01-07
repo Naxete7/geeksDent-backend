@@ -15,13 +15,42 @@ class AuthController extends Controller
 
     public function register(Request $request)
     { try{
+            //$email =  $request->get('email');
+            //$userIsCreate = User::where('email', $email)
+            //    ->where('is_active', false)
+            //    ->get()
+            //    ->toArray();
+
+            //$userExist = User::where('email', $email)
+            //    ->where('is_active', true)
+            //    ->get()
+            //    ->toArray();
+
+            //if (count($userExist) === 1) {
+            //    return response()->json([
+            //        "success" => false,
+            //        "message" => 'Este email ya había sido utilizado.'
+            //    ], 200);
+            //}
+            //if (count($userIsCreate) === 1) {
+            //    $user = User::query()
+            //        ->where('email', $email)
+
+            //        ->update(['is_active' => true]);
+
+            //    return response()->json([
+            //        "success" => false,
+            //        "message" => 'Este email ya había sido utilizado, por lo tanto, hemos reactivado la cuenta.'
+            //    ], 200);
+            //}
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|min:8',
-            'birth_date'=>'date'
+            'birth_date'=>'string'
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->messages(), 400);
@@ -36,7 +65,7 @@ class AuthController extends Controller
 
         ]);
 
-        //$user->roles()->attach(self::USER_ROLE_ID);
+        
         $token = JWTAuth::fromUser($user);
         return response()->json(compact('user', 'token'), 201);
         }catch(\Throwable $th){
@@ -50,32 +79,29 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        try{
-
+        
         $input = $request->only('email', 'password');
         $jwt_token = null;
-        $validation = JWTAuth::attempt($input);
-        //dd($validation);
-        if (!$validation) {
+       $email= $request->email;
+       $password= $request -> password;
+
+
+        if (!$jwt_token = JWTAuth::attempt($input)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Invalid Email or Password', 
+                'message' => 'Invalid Email or Password',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
         return response()->json([
             'success' => true,
-            'message'=>"Logged is succesfully",
-            //"user"=>$email,
-            'token' => $validation,
+            'token' => $jwt_token,
+            'email'=> $email,
+            //'password'=> $password,
+           
         ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to Login a User' . $th->getMessage()
-            ], 500);
-        }
     }
+
 
     public function profile()
     {
