@@ -60,6 +60,6 @@ Route::group([
 ], function () {
     Route::post('/addAppointment', [AppointmentController::class, 'addAppointment']);
     Route::get('/myAppointments', [AppointmentController::class, 'myAppointments']);
-    Route::put('/editAppointment', [AppointmentController::class, 'editAppointment']);
+    Route::put('/updateAppointment', [AppointmentController::class, 'updateAppointment']);
     Route::delete('/deleteAppointment', [AppointmentController::class, 'deleteAppointment']);
 });

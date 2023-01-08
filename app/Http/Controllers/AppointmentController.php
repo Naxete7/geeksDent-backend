@@ -55,14 +55,13 @@ class AppointmentController extends Controller
     {
         try {
 
-            $userId=auth()->user()->id;
+            $userId = auth()->user()->id;
 
             $appointments = DB::table('appointments')
-            ->where('usersId', '=', $userId)
-            ->get();
+                ->where('usersId', '=', $userId)
+                ->get();
 
-            if
-            (auth()->user()->role == 2) {
+            if (auth()->user()->role == 2) {
                 return response()->json([
                     'succes' => true,
                     'message' => 'Appointments succesfully retrieved',
@@ -81,6 +80,66 @@ class AppointmentController extends Controller
             return response()->json([
                 'succes' => true,
                 'message' => 'Appointments could not be retrieved' . $th->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function updateAppointment(Request $request, $id){
+
+            try{
+                $userId=auth()->user()->id;
+                $newDate=$request->input('date');
+
+
+                $updateAppointment= Appointment::where('user_id',$userId)
+                ->where('id', $id)
+            ->update([
+                'date' => $newDate,
+               
+            ]);
+
+            if(!$updateAppointment){
+                return response()->json([
+                    "succes"=>true,
+                    "message"=>"Appointment doesnt exists"
+                ],404);
+            }
+
+            return response()->json([
+                "success" => true,
+                "message" => "Appointment updated"
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "success" => false,
+                "message" => "Error updating Appointment"
+            ], 500);
+        }
+    }
+
+
+
+
+    public function deleteAppointment($id)
+    {
+
+        try {
+            $userId = auth()->user()->id;
+            Appointment::where('user_id', $userId)
+                ->where('id', $id)
+                ->update(['cancelled'=> true]);
+
+            return response([
+                'succes' => true,
+                'message' => 'Se ha cencelado la reserva correctamente',
+
+            ], 200);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response([
+                'succes' => false,
+                'message' => 'No se ha podido cancelar la reserva'
             ], 500);
         }
     }

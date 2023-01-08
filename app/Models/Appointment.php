@@ -15,7 +15,8 @@ class Appointment extends Model
 
         'date',
         'duration',
-        'description'
+        'description',
+        'cancelled'
       
     ];
 
