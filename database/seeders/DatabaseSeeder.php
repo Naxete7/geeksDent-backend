@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Doctor;
+use App\Models\Treatment;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $doctor->especialidad = 'Endodoncias';
 
         $doctor->save();
+
         $doctor = new Doctor;
         $doctor->name = 'Faustino Sala';
         $doctor->especialidad = 'Cirujano/Implantes';
@@ -79,5 +81,41 @@ class DatabaseSeeder extends Seeder
         $doctor->especialidad = 'Recepción';
 
         $doctor->save();
+
+        $treatment=new Treatment;
+        $treatment->name='Endodoncia';
+        $treatment->save();
+
+        $treatment = new Treatment;
+        $treatment->name = 'Estética dental';
+        $treatment->save();
+
+        $treatment = new Treatment;
+        $treatment->name = 'Implantes';
+        $treatment->save();
+
+        $treatment = new Treatment;
+        $treatment->name = 'Odontopediatria';
+        $treatment->save();
+
+        $treatment = new Treatment;
+        $treatment->name = 'Ortodoncia';
+        $treatment->save();
+
+        $treatment = new Treatment;
+        $treatment->name = 'Invisalign';
+        $treatment->save();
+
+        $treatment = new Treatment;
+        $treatment->name = 'Periodoncia';
+        $treatment->save();
+
+        $treatment = new Treatment;
+        $treatment->name = 'Prótesis';
+        $treatment->save();
+
+        $treatment = new Treatment;
+        $treatment->name = 'Higiene dental';
+        $treatment->save();
     }
 }

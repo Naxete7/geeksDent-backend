@@ -15,7 +15,8 @@ class Appointment extends Model
 
         'date',
         'duration',
-        'description'
+        'description',
+        'cancelled'
       
     ];
 
@@ -24,10 +25,10 @@ class Appointment extends Model
         return $this->hasMany(User::class);
     }
 
-    //public function doctors()
-    //{
-    //    return $this->hasMany(Doctor::class);
-    //}
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 
     public function treatments()
     {

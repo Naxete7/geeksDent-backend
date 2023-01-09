@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\TreatmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +51,12 @@ Route::group([
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/users', [AdminController::class, 'users']);
     Route::get('/appointments', [AdminController::class, 'appointments']);
+    Route::get('/doctors', [DoctorController::class, 'doctors']);
+    Route::post('/addDoctor', [DoctorController::class, 'addDoctor']);
+    Route::delete('/deleteDoctor/{id}', [DoctorController::class, 'deleteDoctor']);
+    Route::get('/treatments', [TreatmentController::class, 'treatments']);
+    Route::post('/addTreatment', [TreatmentController::class, 'addTreatment']);
+    Route::delete('/deleteTreatment/{id}', [TreatmentController::class, 'deleteTreatment']);
 });
 
 
@@ -60,6 +68,6 @@ Route::group([
 ], function () {
     Route::post('/addAppointment', [AppointmentController::class, 'addAppointment']);
     Route::get('/myAppointments', [AppointmentController::class, 'myAppointments']);
-    Route::put('/editAppointment', [AppointmentController::class, 'editAppointment']);
+    Route::put('/updateAppointment', [AppointmentController::class, 'updateAppointment']);
     Route::delete('/deleteAppointment', [AppointmentController::class, 'deleteAppointment']);
 });

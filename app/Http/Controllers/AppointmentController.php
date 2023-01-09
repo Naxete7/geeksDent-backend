@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\User;
+use App\Models\Treatment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,19 +23,21 @@ class AppointmentController extends Controller
     public function addAppointment(Request $request)
     {
         try {
-            $userId = auth()->user()->id;
-            //$doctorId= doctor()-> doctorId;
             $date = $request->input('date');
             $duration = $request->input('duration');
-            $description = $request->input('description');
+            $reason = $request->input('reason');
+            $usersId = auth()->user()->id;
+            $doctorsId= $request->input('doctorsId');
+            $treatmentsId= $request->input('treatmentsId');
 
 
             $newAppointment = new Appointment();
             $newAppointment->date = $date;
             $newAppointment->duration = $duration;
-            $newAppointment->description = $description;
-            $newAppointment->usersId = $userId;
-            //$newAppointment->doctorssId = $doctorId;
+            $newAppointment->reason = $reason;
+            $newAppointment->usersId = $usersId;
+            $newAppointment->doctorsId = $doctorsId;
+            $newAppointment->treatmentsId=$treatmentsId;
             $newAppointment->save();
 
             return response()->json([
@@ -51,129 +54,95 @@ class AppointmentController extends Controller
         }
     }
 
-    //public function myAppointments()
-    //{
-    //    try {
-    //        $usersId = auth()->user()->id;
-    //        $user=User::find($usersId);
-
-    //        $myAppointments = $user->appointments()->where('usersId', $usersId)
-    //        ->select('appointments.id')
-    //        ->get();
-
-    //        if (auth()->user()->role == 2) {
-
-    //            return response()->json([
-    //                'succes' => true,
-    //                'message' => 'Appointments succesfully retrieved',
-    //                'data' => $myAppointments 
-
-    //            ], 200);
-    //        } else {
-    //            return response()->json([
-    //                'succes' => false,
-    //                'message' => 'Admin is unic wiew all appointments'
-    //            ], 400);
-    //        }
-    //    } catch (\Throwable $th) {
-
-    //        Log::error("Error retrieving users: " . $th->getMessage());
-
-    //        return response()->json([
-    //            'succes' => true,
-    //            'message' => 'Appointments could not be retrieved' . $th->getMessage()
-    //        ], 500);
-    //    }
-    //}
-
-
-    //public function myAppointments(){
-
-    //    try{
-    //        $usersId=auth()->user()->id;
-
-    //        $appointments= Appointment::query()
-    //            ->where('usersId','=',$usersId)
-    //            ->get()
-    //            ->toArray();
-
-    //        $appointments=DB::table('appointments')
-    //            ->join('users','users.id','=','appointments.usersId')
-    //            ->select('users.name', 'appointments.date')
-    //            ->get();
-
-    //            $appointments=User::find($usersId)->appointment;
-
-    //            return response()->json([
-    //                "succes"=>true,
-    //                "message"=>"get appointments succesfully",
-    //                "data"=>$appointments
-
-    //            ],200);
-
-    //    } catch(\Throwable $th){
-
-    //        return response()->json([
-    //            "succes"=>false,
-    //            "message"=> "error getting appointments" . $th->getMessage()
-    //        ],500);
-    //    }
-
-    //}
-
-
-    //public function myappointments()
-    //{
-    //    try {
-    //        //auth()->user()->userId==6;
-    //        $appointments = Appointment::get();
-
-    //        if
-    //        (auth()->user()->role == 2) {
-    //            return response()->json([
-    //                'succes' => true,
-    //                'message' => 'Appointments succesfully retrieved',
-    //                'data' => $appointments
-    //            ], 200);
-    //        } else {
-    //            return response()->json([
-    //                'succes' => false,
-    //                'message' => 'Admin is unic wiew all appointments'
-    //            ], 400);
-    //        }
-    //    } catch (\Throwable $th) {
-
-    //        Log::error("Error retrieving users: " . $th->getMessage());
-
-    //        return response()->json([
-    //            'succes' => true,
-    //            'message' => 'Appointments could not be retrieved' . $th->getMessage()
-    //        ], 500);
-    //    }
-    //}
-
-    public function myAppointments()
+    public function myappointments()
     {
-        Log::info('Getttin Appointments');
         try {
-            $usersId = auth()->user()->id;
+
+            $userId = auth()->user()->id;
+
+            $appointments = DB::table('appointments')
+                ->where('usersId', '=', $userId)
+                ->get();
+
+            if (auth()->user()->role == 2) {
+                return response()->json([
+                    'succes' => true,
+                    'message' => 'Appointments succesfully retrieved',
+                    'data' => $appointments
+                ], 200);
+            } else {
+                return response()->json([
+                    'succes' => false,
+                    'message' => 'Admin is unic wiew all appointments'
+                ], 400);
+            }
+        } catch (\Throwable $th) {
+
+            Log::error("Error retrieving users: " . $th->getMessage());
+
+            return response()->json([
+                'succes' => true,
+                'message' => 'Appointments could not be retrieved' . $th->getMessage()
+            ], 500);
+        }
+    }
 
 
-            $appointments = Appointment::select('id', 'appointments.date', 'appointments.description', 'appointments.usersId')
-            ->with('users:id,name')
-            ->find($usersId);
+    public function updateAppointment(Request $request, $id){
+
+            try{
+                $userId=auth()->user()->id;
+                $newDate=$request->input('date');
+
+
+                $updateAppointment= Appointment::where('user_id',$userId)
+                ->where('id', $id)
+            ->update([
+                'date' => $newDate,
+               
+            ]);
+
+            if(!$updateAppointment){
+                return response()->json([
+                    "succes"=>true,
+                    "message"=>"Appointment doesnt exists"
+                ],404);
+            }
 
             return response()->json([
                 "success" => true,
-                "message" => "Get Appointments successfully",
-                "data" => $appointments
+                "message" => "Appointment updated"
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "success" => false,
+                "message" => "Error updating Appointment"
+            ], 500);
+        }
+    }
+
+
+
+
+    public function deleteAppointment($id)
+    {
+
+        try {
+            $userId = auth()->user()->id;
+            Appointment::where('user_id', $userId)
+                ->where('id', $id)
+                ->update(['cancelled'=> true]);
+
+            return response([
+                'succes' => true,
+                'message' => 'Se ha cencelado la reserva correctamente',
+
             ], 200);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
-
-            return response()->json([
-                "success" => false,
-                "message" => "Error getting appointments" . $th->getMessage()
+            return response([
+                'succes' => false,
+                'message' => 'No se ha podido cancelar la reserva'
             ], 500);
         }
     }
