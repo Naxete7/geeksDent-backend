@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\User;
+use App\Models\Treatment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,19 +23,21 @@ class AppointmentController extends Controller
     public function addAppointment(Request $request)
     {
         try {
-            $userId = auth()->user()->id;
-            //$doctorId= doctor()-> doctorId;
             $date = $request->input('date');
             $duration = $request->input('duration');
-            $description = $request->input('description');
+            $reason = $request->input('reason');
+            $userId = auth()->user()->id;
+            $doctorId= doctors()-> id;
+            $treatmentId=treatments()->id;
 
 
             $newAppointment = new Appointment();
             $newAppointment->date = $date;
             $newAppointment->duration = $duration;
-            $newAppointment->description = $description;
+            $newAppointment->reason = $reason;
             $newAppointment->usersId = $userId;
-            //$newAppointment->doctorssId = $doctorId;
+            $newAppointment->doctorssId = $doctorId;
+            $newAppointment->treatmentId=$treatmentId;
             $newAppointment->save();
 
             return response()->json([

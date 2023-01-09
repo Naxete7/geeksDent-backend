@@ -15,34 +15,6 @@ class AuthController extends Controller
 
     public function register(Request $request)
     { try{
-            //$email =  $request->get('email');
-            //$userIsCreate = User::where('email', $email)
-            //    ->where('is_active', false)
-            //    ->get()
-            //    ->toArray();
-
-            //$userExist = User::where('email', $email)
-            //    ->where('is_active', true)
-            //    ->get()
-            //    ->toArray();
-
-            //if (count($userExist) === 1) {
-            //    return response()->json([
-            //        "success" => false,
-            //        "message" => 'Este email ya había sido utilizado.'
-            //    ], 200);
-            //}
-            //if (count($userIsCreate) === 1) {
-            //    $user = User::query()
-            //        ->where('email', $email)
-
-            //        ->update(['is_active' => true]);
-
-            //    return response()->json([
-            //        "success" => false,
-            //        "message" => 'Este email ya había sido utilizado, por lo tanto, hemos reactivado la cuenta.'
-            //    ], 200);
-            //}
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -108,7 +80,7 @@ class AuthController extends Controller
         return response()->json(auth()->user());
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         
         try {

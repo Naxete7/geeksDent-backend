@@ -17,14 +17,14 @@ return new class extends Migration
         $table->id();
         $table->date('date');
         $table->string('duration');
-        $table->string('description');
+        $table->string('reason');
         $table->unsignedBigInteger('usersId');
         $table->unsignedBigInteger('doctorsId');
-        //$table->unsignedBigInteger('treatmentsId');
+        $table->unsignedBigInteger('treatmentsId');
 
         $table->foreign('usersId')->references('id')->on('users');
         $table->foreign('doctorsId')->references('id')->on('doctors');
-            //$table->foreign('treatmentsId')->references('id')->on('treatments');
+            $table->foreign('treatmentsId')->references('id')->on('treatments');
             $table->timestamps();
        });
     }
