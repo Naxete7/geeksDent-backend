@@ -26,18 +26,18 @@ class AppointmentController extends Controller
             $date = $request->input('date');
             $duration = $request->input('duration');
             $reason = $request->input('reason');
-            $userId = auth()->user()->id;
-            $doctorId= doctors()-> id;
-            $treatmentId=treatments()->id;
+            $usersId = auth()->user()->id;
+            $doctorsId= $request->input('doctorsId');
+            $treatmentsId= $request->input('treatmentsId');
 
 
             $newAppointment = new Appointment();
             $newAppointment->date = $date;
             $newAppointment->duration = $duration;
             $newAppointment->reason = $reason;
-            $newAppointment->usersId = $userId;
-            $newAppointment->doctorssId = $doctorId;
-            $newAppointment->treatmentId=$treatmentId;
+            $newAppointment->usersId = $usersId;
+            $newAppointment->doctorsId = $doctorsId;
+            $newAppointment->treatmentsId=$treatmentsId;
             $newAppointment->save();
 
             return response()->json([
