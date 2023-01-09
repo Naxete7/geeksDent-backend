@@ -79,4 +79,36 @@ class TreatmentController extends Controller
             ], 500);
         }
     }
+
+
+    public function deleteTreatment($id)
+    {
+
+        try {
+            if (auth()->user()->role == 1) {
+
+                Treatment::where('id', $id)
+                ->delete(['is_active' => false]);
+
+                return response([
+                    'succes' => true,
+                    'message' => 'Se ha borrado el tratamiento correctamente',
+
+                ], 200);
+            } else {
+                return response()->json([
+
+                    'succes' => false,
+                    'message' => 'Admin es el único que puede borrar el tratamiento'
+                ], 400);
+            }
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response([
+                'succes' => false,
+                'message' => 'No se ha podido borrar el tratamiento'
+            ], 500);
+        }
+    }
+
 }
