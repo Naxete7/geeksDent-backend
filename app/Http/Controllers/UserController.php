@@ -26,7 +26,7 @@ class UserController extends Controller
                 'name' => 'string|max:255',
                 'surname' => 'string|max:255',
                 'phone' => 'string|min:8',
-                'birth_date' => 'date',
+                
                 
             ]);
 
@@ -41,19 +41,18 @@ class UserController extends Controller
             $user->name = $request->input('name');
             $user->surname = $request->input('surname');
             $user->phone = $request->input('phone');
-            $user->birth_date = $request->input('birth_date');
             $user->save();
 
             return response([
                 'success' => true,
-                'message' => 'Player data modified correctly.'
+                'message' => 'Usuario modificado satisfactoriamente'
             ], 200);
 
         } catch (\Throwable $th) {
             //Log::error($th->getMessage());
             return response([
                 'success' => false,
-                'message' => 'Error when modifying player data' . $th->getMessage()
+                'message' => 'Error cuando se estaba modificando el usuario' . $th->getMessage()
             ], 500);
         }
 

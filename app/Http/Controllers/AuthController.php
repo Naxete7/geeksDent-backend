@@ -108,12 +108,12 @@ class AuthController extends Controller
             auth()->logout();
             return response()->json([
                 'success' => true,
-                'message' => 'User logged out successfully'
+                'message' => 'Usuario se ha desconectado satisfactoriamente'
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, the user cannot be logged out '
+                'message' => 'Lo sentimos, el usuario no puede desconectarse. '
             ], 500);
         }
     }
