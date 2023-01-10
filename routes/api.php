@@ -51,6 +51,7 @@ Route::group([
 ], function () {
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/users', [AdminController::class, 'users']);
+    Route::delete('/deleteuser/{id}', [AdminController::class, 'deleteuser']);
     Route::get('/appointments', [AdminController::class, 'appointments']);
     Route::get('/doctors', [DoctorController::class, 'doctors']);
     Route::post('/addDoctor', [DoctorController::class, 'addDoctor']);

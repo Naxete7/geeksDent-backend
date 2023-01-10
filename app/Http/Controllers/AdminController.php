@@ -69,4 +69,25 @@ class AdminController extends Controller
     }
 
 
+    public function deleteUser($id)
+    {
+        try {
+
+            User::where('id', $id)
+                ->update(['active' => false]);
+
+            return response([
+                'success' => true,
+                'message' => 'Se ha eliminado el ususario correctamente.'
+
+            ], 200);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response([
+                'success' => false,
+                'message' => 'No se ha podido eliminar el ususario.'
+            ], 500);
+        }
+    }
+
 }
