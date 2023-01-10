@@ -14,10 +14,14 @@ class Cors
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle( $request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         return $next($request)
-        ->header('Acces-Control-Allow-Origin','*')
-        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+            //Url a la que se le dará acceso en las peticiones
+            ->header("Access-Control-Allow-Origin", "http://urlfronted.example")
+            //Métodos que a los que se da acceso
+            ->header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+            //Headers de la petición
+            ->header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Token-Auth, Authorization");
     }
 }
