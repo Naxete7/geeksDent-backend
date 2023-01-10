@@ -10,43 +10,64 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    // Iremos añadiendo cada uno de los métodos
-    //const USER_ROLE_ID = 2;
-
     public function register(Request $request)
-    { try{
+    { 
+        $email= $request->get('email');
+        $userCreate=User::where('email', $email)
+        ->where('active',false)
+        ->get()
+        ->toArray();
+
+        $userExist = User::where('email', $email)
+        ->where('active', true)
+        ->get()
+        ->toArray();
+
+        if (count($userExist) === 1) {
+            return response()->json([
+                "success" => false,
+                "message" => 'Este email ya había sido utilizado.'
+            ], 200);
+        }
+        if (count($userCreate) === 1) {
+            $user = User::query()
+                ->where('email', $email)
+                ->update(['active' => true]);
+
+
+            return response()->json([
+                "success" => false,
+                "message" => 'Hemos reactivado la cuenta.'
+            ], 200);
+        }
+
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'name' => 'required|string|max:25',
+            'surname' => 'required|string|max:50',
+            'email' => 'required|string|email|max:50|unique:users',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|min:8',
-            'birth_date'=>'string'
         ]);
+
         if ($validator->fails()) {
             return response()->json($validator->errors()->messages(), 400);
         }
+
         $user = User::create([
             'name' => $request->get('name'),
             'surname' => $request->get('surname'),
             'email' => $request->get('email'),
             'password' => bcrypt($request->password),
             'phone'=>$request->get('phone'),
-            'birth_date'=>$request->get('birth_date')
+            'active' => true,
+            //'role_id' => 2
 
         ]);
 
         
         $token = JWTAuth::fromUser($user);
         return response()->json(compact('user', 'token'), 201);
-        }catch(\Throwable $th){
-
-            return response([
-                'success' => false,
-                'message' => 'Failed to create a User' . $th->getMessage()
-            ], 500);
-        }
     }
 
     public function login(Request $request)
