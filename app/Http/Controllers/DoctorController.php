@@ -23,19 +23,20 @@ class DoctorController extends Controller
                 $newDoctor = new Doctor();
                 $newDoctor->name = $name;
                 $newDoctor->especialidad = $especialidad;
-            
+                 $newDoctor->active=true;
+
                 $newDoctor->save();
     
                 return response()->json([
                     "success" => true,
-                    "message" => "Doctor created"
+                    "message" => "Doctor creado"
                 ], 201);
 
             } else {
                 return response()->json([
 
                     'succes' => false,
-                    'message' => 'Admin is unic created doctors'
+                    'message' => 'El admin es el unico que puede crear doctores'
                 ], 400);
             }
 
@@ -59,14 +60,14 @@ class DoctorController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'message' => 'Doctors successfully retrieved',
+                    'message' => 'Doctores recuperados con exito',
                     'data' => $doctors
                 ], 200);
             } else {
                 return response()->json([
 
                     'succes' => false,
-                    'message' => 'Admin is unic view alldoctors' 
+                    'message' => 'Admin es el único que puede ver todos los doctores' 
                 ], 400);
             }
         } catch (\Throwable $th) {
@@ -74,7 +75,7 @@ class DoctorController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Doctors could not be retrieved'
+                'message' => 'Los doctores no se han podido recuperar'
             ], 500);
         }
     }
@@ -86,7 +87,7 @@ class DoctorController extends Controller
             if (auth()->user()->role == 1){
 
                 Doctor::where('id', $id)
-                ->delete(['is_active' => false]);
+                ->update(['active' => false]);
                    
                 return response([
                     'succes' => true,
@@ -99,7 +100,7 @@ class DoctorController extends Controller
                 return response()->json([
 
                     'succes' => false,
-                    'message' => 'Admin is unic delete doctor'
+                    'message' => 'Admin es el unico que puede borrar doctores'
                 ], 400);
             }
 

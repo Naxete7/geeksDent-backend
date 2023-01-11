@@ -21,19 +21,19 @@ class TreatmentController extends Controller
 
                 $newTreatment = new Treatment();
                 $newTreatment->name = $name;
-                
+                $newTreatment->active=true;
 
                 $newTreatment->save();
 
                 return response()->json([
                     "success" => true,
-                    "message" => "Treatment created"
+                    "message" => "Treatmento creado"
                 ], 201);
             } else {
                 return response()->json([
 
                     'succes' => false,
-                    'message' => 'Admin is unic created treatments'
+                    'message' => 'Admin es el único que puede crer tratamientos'
                 ], 400);
             }
         } catch (\Throwable $th) {
@@ -41,7 +41,7 @@ class TreatmentController extends Controller
 
             return response()->json([
                 "success" => false,
-                "message" => "Error creating treatment" . $th->getMessage()
+                "message" => "Error al crear el tratamiento" . $th->getMessage()
             ], 201);
         }
     }
@@ -60,22 +60,22 @@ class TreatmentController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'message' => 'Treatments successfully retrieved',
+                    'message' => 'Tratamientos recuperados con éxito',
                     'data' => $treatments
                 ], 200);
             } else {
                 return response()->json([
 
                     'succes' => false,
-                    'message' => 'Admin is unic view all treatments'
+                    'message' => 'Admin es el unico que puede ver todos los tratamientos'
                 ], 400);
             }
         } catch (\Throwable $th) {
-            Log::error("Error retrieving treatments: " . $th->getMessage());
+            Log::error("Error al recuperar los tratamientos: " . $th->getMessage());
 
             return response()->json([
                 'success' => true,
-                'message' => 'Treatments could not be retrieved'
+                'message' => 'No se pudieron recuperar los tratamientos.'
             ], 500);
         }
     }
@@ -88,7 +88,7 @@ class TreatmentController extends Controller
             if (auth()->user()->role == 1) {
 
                 Treatment::where('id', $id)
-                ->delete(['is_active' => false]);
+                ->update(['active' => false]);
 
                 return response([
                     'succes' => true,

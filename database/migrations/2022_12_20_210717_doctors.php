@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('especialidad');
+            $table->boolean('active');
             $table->timestamps();
             //$table->unsignedBigInteger('traetmentsId');
             //$table->foreign('treatmentsId')->references('id')->on('treatments');

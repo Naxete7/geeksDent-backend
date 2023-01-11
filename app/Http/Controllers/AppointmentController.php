@@ -42,14 +42,14 @@ class AppointmentController extends Controller
 
             return response()->json([
                 "success" => true,
-                "message" => "Appointment created"
+                "message" => "Cita creada"
             ], 201);
         } catch (\Throwable $th) {
-            Log::error('Error creating appointment: ' . $th->getMessage());
+            Log::error('Error al crear la cita: ' . $th->getMessage());
 
             return response()->json([
                 "success" => false,
-                "message" => "Error creating Appointment" . $th->getMessage()
+                "message" => "Error al crear la cita" . $th->getMessage()
             ], 201);
         }
     }
@@ -67,13 +67,13 @@ class AppointmentController extends Controller
             if (auth()->user()->role == 2) {
                 return response()->json([
                     'succes' => true,
-                    'message' => 'Appointments succesfully retrieved',
+                    'message' => 'Citas recuperadas con éxito',
                     'data' => $appointments
                 ], 200);
             } else {
                 return response()->json([
                     'succes' => false,
-                    'message' => 'Admin is unic wiew all appointments'
+                    'message' => 'Admin es el único que puede ver todas las citas'
                 ], 400);
             }
         } catch (\Throwable $th) {
@@ -82,7 +82,7 @@ class AppointmentController extends Controller
 
             return response()->json([
                 'succes' => true,
-                'message' => 'Appointments could not be retrieved' . $th->getMessage()
+                'message' => 'Las citas no se han podido recuperar' . $th->getMessage()
             ], 500);
         }
     }
@@ -105,18 +105,18 @@ class AppointmentController extends Controller
             if(!$updateAppointment){
                 return response()->json([
                     "succes"=>true,
-                    "message"=>"Appointment doesnt exists"
+                    "message"=>"La cita no existe"
                 ],404);
             }
 
             return response()->json([
                 "success" => true,
-                "message" => "Appointment updated"
+                "message" => "Cita modificada"
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,
-                "message" => "Error updating Appointment"
+                "message" => "Error al modificar la cita"
             ], 500);
         }
     }
@@ -135,14 +135,14 @@ class AppointmentController extends Controller
 
             return response([
                 'succes' => true,
-                'message' => 'Se ha cencelado la reserva correctamente',
+                'message' => 'Se ha cencelado la cita correctamente',
 
             ], 200);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return response([
                 'succes' => false,
-                'message' => 'No se ha podido cancelar la reserva'
+                'message' => 'No se ha podido cancelar la cita'
             ], 500);
         }
     }
