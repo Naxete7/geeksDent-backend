@@ -61,7 +61,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
             'phone'=>$request->get('phone'),
             'active' => true,
-            //'role_id' => 2
+            'role' => 2
 
         ]);
 
@@ -73,10 +73,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         
-        $input = $request->only('email', 'password');
+        $input = $request->only('email', 'password', 'role');
         $jwt_token = null;
        $email= $request->email;
        $password= $request -> password;
+       $role=$request->role;
 
 
         if (!$jwt_token = JWTAuth::attempt($input)) {
@@ -90,6 +91,7 @@ class AuthController extends Controller
             'success' => true,
             'token' => $jwt_token,
             'email'=> $email,
+            'role'=>$role
             //'password'=> $password,
            
         ]);
