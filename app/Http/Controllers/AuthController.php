@@ -72,29 +72,36 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        
-        $input = $request->only('email', 'password', 'role');
-        $jwt_token = null;
-       $email= $request->email;
-       $password= $request -> password;
-       $role=$request->role;
+        try {
+
+            $input = $request->only('email', 'password', 'role');
+            $jwt_token = null;
+            $email = $request->email;
+            $password = $request->password;
+            $role = $request->role;
 
 
-        if (!$jwt_token = JWTAuth::attempt($input)) {
+            if (!$jwt_token = JWTAuth::attempt($input)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid Email or Password',
+                ], Response::HTTP_UNAUTHORIZED);
+            }
+
+            return response()->json([
+                'success' => true,
+                'token' => $jwt_token,
+                'email' => $email,
+                'role' => $role
+                //'password'=> $password,
+
+            ]);
+        } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'message' => 'Invalid Email or Password',
-            ], Response::HTTP_UNAUTHORIZED);
+                'message' => $th->getMessage()
+            ], 500);
         }
-
-        return response()->json([
-            'success' => true,
-            'token' => $jwt_token,
-            'email'=> $email,
-            'role'=>$role
-            //'password'=> $password,
-           
-        ]);
     }
 
 
