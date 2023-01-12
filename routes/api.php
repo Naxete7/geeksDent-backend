@@ -47,7 +47,7 @@ Route::put('/updateUser', [UserController::class,'updateUser']);
 //ADMIN
 Route::group([
     'middleware' =>
-    'admin.auth', 'cors'
+    ['admin.auth', 'cors']
 ], function () {
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/users', [AdminController::class, 'users']);
@@ -67,7 +67,7 @@ Route::group([
 
 Route::group([
     'middleware' =>
-    'jwt.auth', 'cors'
+   ['jwt.auth', 'cors'] 
 ], function () {
     Route::post('/addAppointment', [AppointmentController::class, 'addAppointment']);
     Route::get('/myAppointments', [AppointmentController::class, 'myAppointments']);
