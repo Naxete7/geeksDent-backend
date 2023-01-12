@@ -55,21 +55,15 @@ class TreatmentController extends Controller
     {
         try {
             $treatments = Treatment::get();
-            if (auth()->user()->role == 1) {
-
+           
 
                 return response()->json([
                     'success' => true,
                     'message' => 'Tratamientos recuperados con éxito',
                     'data' => $treatments
                 ], 200);
-            } else {
-                return response()->json([
-
-                    'succes' => false,
-                    'message' => 'Admin es el unico que puede ver todos los tratamientos'
-                ], 400);
-            }
+            
+            
         } catch (\Throwable $th) {
             Log::error("Error al recuperar los tratamientos: " . $th->getMessage());
 
