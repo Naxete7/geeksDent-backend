@@ -72,11 +72,10 @@ Para ello en nuestra base datos hemos creado las tablas, doctores, tratamientos,
 
 El proyecto se realizó con php Laravel, y en primer lugar creamos las migraciones donde iran todos los datos de nuestra base de datos.
 
-IMAGEN MIGRACIONES
+![Captura de pantalla 2023-01-14 004539](https://user-images.githubusercontent.com/109297564/212438245-c0a2f112-4f01-4057-95b7-778a505520c1.jpg)
+
 
 Una vez creadas todas las tablas, realizaremos las migraciones. Una vez creadas las migraciones añadiremos los items que vamos a necesitar en cada tabla, y también añadiremos las relaciones entre las tablas.
-
-IMAGEN MIGRACION
 
 Indicar que para poder crear las relaciones también hemos tenido que crear los modelos de las tablas, ya que ahi indicaremos la relación existente.
 
@@ -92,12 +91,14 @@ Estas routas iran en el archivo api.php que se encuentra alojado en la carpeta r
 
 Y para poder darle funcionalIdad a cada una de estas rutas, crearemos los controllers, donde crearemos toda la lógica para poder obtener todos los endpoints
 
-IMAGEN CONTROLLERS
+![Captura de pantalla 2023-01-14 004401](https://user-images.githubusercontent.com/109297564/212438156-d10e23c8-0ed5-4e45-ba49-ec9fb8eb51e7.jpg)
+
 
 Como vemos en la imagen los  controllers se encuentran en la carpeta HTTP, que estará ubicada dentro de app.
 
 
-IMAGEN EJEMPLO CONTROLLER
+![estructura del proyecto](https://user-images.githubusercontent.com/109297564/212438178-67cb4975-3c7f-49c9-a7cc-4767d32c8e35.jpg)
+
 
 Para poder comprobar que todos nuestros ENDPOINTS funcionan, crearemos una colección en Postman con todos ellos.
 
