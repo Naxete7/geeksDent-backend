@@ -63,7 +63,13 @@ $ php artisan serve (lo tendremos levantado en localhost:8000)
 
 En este proyecto final del bootcamp de FullStack Developer hemos creado la pagina web de una clínica dental, donde los usuarios podrán ver los doctores y los tratamientos que realizamos en nuestra clínica. También podrán registrar y hacer login , para poder pedir citas, y tener el seguimiento de todas las citas que han solicitado en nuestra clínica.
 Para ello en nuestra base datos hemos creado las tablas, doctores, tratamientos, usuarios y citas. Aquí dejamos una imagen de las 4 tablas con su relación.
-IMAGEN RELACION TABLAS
+
+
+
+![relaciones tablas](https://user-images.githubusercontent.com/109297564/212437972-1d37762a-3fe0-4476-ac7d-4324e1697154.jpg)
+
+
+
 El proyecto se realizó con php Laravel, y en primer lugar creamos las migraciones donde iran todos los datos de nuestra base de datos.
 
 IMAGEN MIGRACIONES
@@ -74,15 +80,18 @@ IMAGEN MIGRACION
 
 Indicar que para poder crear las relaciones también hemos tenido que crear los modelos de las tablas, ya que ahi indicaremos la relación existente.
 
-IMAGEN MODELO
+![ejemplo modelo](https://user-images.githubusercontent.com/109297564/212437948-19bf0975-b763-47d1-a368-5b7b76a42032.jpg)
+
 
 A continuacion y para empezar con los endpoints añadiremos las rutas necesarias para cada uno de los endpoints necesarios para que la aplicación sea totalmente funcional.
 
 Estas routas iran en el archivo api.php que se encuentra alojado en la carpeta routes.
 
-IMAGEN ROUTES
+![rutas](https://user-images.githubusercontent.com/109297564/212437927-2cc207bb-9349-4635-97bb-d6ac6c09bf64.jpg)
+
 
 Y para poder darle funcionalIdad a cada una de estas rutas, crearemos los controllers, donde crearemos toda la lógica para poder obtener todos los endpoints
+
 IMAGEN CONTROLLERS
 
 Como vemos en la imagen los  controllers se encuentran en la carpeta HTTP, que estará ubicada dentro de app.
@@ -91,7 +100,12 @@ Como vemos en la imagen los  controllers se encuentran en la carpeta HTTP, que e
 IMAGEN EJEMPLO CONTROLLER
 
 Para poder comprobar que todos nuestros ENDPOINTS funcionan, crearemos una colección en Postman con todos ellos.
-IMAGEN POSTMAN
+
+
+![Captura de pantalla 2023-01-14 004224](https://user-images.githubusercontent.com/109297564/212438031-6b3b9a3a-c469-4621-9142-3b18b3f1a693.jpg)
+
+
+
 Una vez probados todos los endpoints ya tenemos un backend funcional, para la aplicación.
 
 ## ENDPOINTS ##
