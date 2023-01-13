@@ -17,11 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('active');
-            //$table->unsignedBigInteger('usersId');
-            //$table->unsignedBigInteger('doctorsId');
-
-            //$table->foreign('usersId')->references('id')->on('users');
-            //$table->foreign('doctorsId')->references('id')->on('doctors');
             $table->timestamps();
         });
     }

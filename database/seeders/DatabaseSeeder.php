@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+
+use App\Models\Appointment;
 use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Treatment;
@@ -147,5 +149,29 @@ class DatabaseSeeder extends Seeder
         $treatment->name = 'Higiene dental';
         $treatment->active = '1';
         $treatment->save();
+
+        $appointment= new Appointment;
+        $appointment->date= '2023-01-19 11:35:00';
+        $appointment->reason='caries ';
+        $appointment->usersId='2';
+        $appointment->doctorsId='3';
+        $appointment->treatmentsId='5';
+        $appointment->save();
+
+        $appointment = new Appointment;
+        $appointment->date = '2023-01-26 14:45:00';
+        $appointment->reason = 'flemon';
+        $appointment->usersId = '2';
+        $appointment->doctorsId = '1';
+        $appointment->treatmentsId = '4';
+        $appointment->save();
+
+        $appointment = new Appointment;
+        $appointment->date = '2023-01-31 19:15:00';
+        $appointment->reason = 'limpieza ';
+        $appointment->usersId = '2';
+        $appointment->doctorsId = '7';
+        $appointment->treatmentsId = '6';
+        $appointment->save();
     }
 }
