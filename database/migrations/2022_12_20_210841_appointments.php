@@ -15,8 +15,7 @@ return new class extends Migration
     {
        Schema::create('appointments', function(Blueprint $table){
         $table->id();
-        $table->date('date');
-        $table->string('duration');
+        $table->timestamp('date');
         $table->string('reason');
         $table->unsignedBigInteger('usersId');
         $table->unsignedBigInteger('doctorsId');

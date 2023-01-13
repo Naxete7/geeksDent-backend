@@ -24,7 +24,6 @@ class AppointmentController extends Controller
     {
         try {
             $date = $request->input('date');
-            $duration = $request->input('duration');
             $reason = $request->input('reason');
             $usersId = auth()->user()->id;
             $doctorsId= $request->input('doctorsId');
@@ -33,7 +32,6 @@ class AppointmentController extends Controller
 
             $newAppointment = new Appointment();
             $newAppointment->date = $date;
-            $newAppointment->duration = $duration;
             $newAppointment->reason = $reason;
             $newAppointment->usersId = $usersId;
             $newAppointment->doctorsId = $doctorsId;
