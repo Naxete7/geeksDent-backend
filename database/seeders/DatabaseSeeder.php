@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
         $doctor->save();
 
         $doctor = new Doctor;
-        $doctor->name = 'Javier Flor';
+        $doctor->name = 'Javier Flors';
         $doctor->especialidad = 'Ortodoncista';
         $doctor->active = '1';
 

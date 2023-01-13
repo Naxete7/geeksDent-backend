@@ -42,6 +42,8 @@ Route::group([
 //USERS
 
 Route::put('/updateUser', [UserController::class,'updateUser']);
+Route::get('/doctors', [DoctorController::class, 'doctors']);
+Route::get('/treatments', [TreatmentController::class, 'treatments']);
 
 
 //ADMIN
@@ -53,10 +55,8 @@ Route::group([
     Route::get('/users', [AdminController::class, 'users']);
     Route::delete('/deleteuser/{id}', [AdminController::class, 'deleteuser']);
     Route::get('/appointments', [AdminController::class, 'appointments']);
-    Route::get('/doctors', [DoctorController::class, 'doctors']);
     Route::post('/addDoctor', [DoctorController::class, 'addDoctor']);
     Route::delete('/deleteDoctor/{id}', [DoctorController::class, 'deleteDoctor']);
-    Route::get('/treatments', [TreatmentController::class, 'treatments']);
     Route::post('/addTreatment', [TreatmentController::class, 'addTreatment']);
     Route::delete('/deleteTreatment/{id}', [TreatmentController::class, 'deleteTreatment']);
 });
