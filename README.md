@@ -128,7 +128,7 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register'])
      <br>
      le pasaremos un body de este tipo
-     Tendremos que pasarle un body {
+     {
   "name":"Luis",
             "surname":"Catala",
              "email":"luis@luis.com",
@@ -137,13 +137,7 @@ Route::group([
 }
 
       <br>
-    Route::post('/login', [AuthController::class, 'login']);
-     <br>
-     le pasaremos un body de este tipo
-     {
-              "email":"nacho@nacho.com",
-            "password":"Nacho1234"
-}
+  
       <br>
 });
 Route::group([
@@ -231,15 +225,18 @@ function () {
        //"doctorsId":"2",
        //"treatmentsId":"6"}
        <br>
+       <br>
     Route::get('/myAppointments', [AppointmentController::class, 'myAppointments']);
     <br>
     Route::put('/updateAppointment', [AppointmentController::class, 'updateAppointment']);
+    <br>
     <br>
   le pasaremos un body de este tipo
     / {"date":"2023-1-26",
        //"reason":"Colocación de brackets",
        //"doctorsId":"2",
        //"treatmentsId":"6"}
+       <br>
        <br>
     Route::delete('/deleteAppointment', [AppointmentController::class, 'deleteAppointment']);
 });
