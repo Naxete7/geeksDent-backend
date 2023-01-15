@@ -119,39 +119,96 @@ Una vez probados todos los endpoints ya tenemos un backend funcional, para la ap
 
 //AUTH
 Route::group([
-    'middleware'=> 'cors'
-], function(){
+    'middleware'=>
+     <br>'cors'
+],
+ <br>
+ function(){
+ <br>
+    Route::post('/register', [AuthController::class, 'register'])
+     <br>
+     le pasaremos un body de este tipo
+     Tendremos que pasarle un body {
+  "name":"Luis",
+            "surname":"Catala",
+             "email":"luis@luis.com",
+            "password":"luis1234",
+            "phone":"666555444"
+}
 
-    Route::post('/register', [AuthController::class, 'register']);
+      <br>
     Route::post('/login', [AuthController::class, 'login']);
+     <br>
+     le pasaremos un body de este tipo
+     {
+              "email":"nacho@nacho.com",
+            "password":"Nacho1234"
+}
+      <br>
 });
 Route::group([
-    'middleware' => ['jwt.auth', 'cors']
-], function () {
+    'middleware' =>
+     <br>['jwt.auth', 'cors']
+], 
+ <br>function () {
+ <br>
     Route::post('/logout', [AuthController::class, 'logout']);
+     <br>
     Route::get('/profile', [AuthController::class, 'profile']);
 });
 
 //USERS
 
 Route::put('/updateUser', [UserController::class,'updateUser']);
+ <br>
+ le pasaremos un body de este tipo
+ {
+            "name":"Ignacio",
+            "surname":"Garcia Valero",
+            "phone":"111111111"
+}
+<br>
 Route::get('/doctors', [DoctorController::class, 'doctors']);
+ <br>
 Route::get('/treatments', [TreatmentController::class, 'treatments']);
 
 
 //ADMIN
 Route::group([
     'middleware' =>
+    <br>
     ['admin.auth', 'cors']
-], function () {
+],
+<br>
+function () {
+<br>
     Route::get('/admin', [AdminController::class, 'index']);
+    <br>
     Route::get('/users', [AdminController::class, 'users']);
+    <br>
     Route::delete('/deleteuser/{id}', [AdminController::class, 'deleteuser']);
+     <br>
     Route::get('/appointments', [AdminController::class, 'appointments']);
+     <br>
     Route::post('/addDoctor', [DoctorController::class, 'addDoctor']);
+     <br>
+  le pasaremos un body de este tipo  
+{
+"name":"Juan Navarro",
+"especialidad":"implantes"
+}
+<br>
     Route::delete('/deleteDoctor/{id}', [DoctorController::class, 'deleteDoctor']);
+     <br>
     Route::post('/addTreatment', [TreatmentController::class, 'addTreatment']);
+     <br>
+     le pasremos este body
+       {
+        "name":"all on 4"
+        }
+     <br>
     Route::delete('/deleteTreatment/{id}', [TreatmentController::class, 'deleteTreatment']);
+     <br>
 });
 
 
@@ -160,11 +217,30 @@ Route::group([
 
 Route::group([
     'middleware' =>
+    <br>
    ['jwt.auth', 'cors'] 
-], function () {
+], 
+<br>
+function () {
+<br>
     Route::post('/addAppointment', [AppointmentController::class, 'addAppointment']);
+    <br>
+   le pasaremos un body de este tipo
+     {"date":"2023-1-26",
+       //"reason":"Colocación de brackets",
+       //"doctorsId":"2",
+       //"treatmentsId":"6"}
+       <br>
     Route::get('/myAppointments', [AppointmentController::class, 'myAppointments']);
+    <br>
     Route::put('/updateAppointment', [AppointmentController::class, 'updateAppointment']);
+    <br>
+  le pasaremos un body de este tipo
+    / {"date":"2023-1-26",
+       //"reason":"Colocación de brackets",
+       //"doctorsId":"2",
+       //"treatmentsId":"6"}
+       <br>
     Route::delete('/deleteAppointment', [AppointmentController::class, 'deleteAppointment']);
 });
 
