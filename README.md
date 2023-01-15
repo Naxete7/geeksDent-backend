@@ -135,7 +135,12 @@ Route::group([
             "password":"luis1234",
             "phone":"666555444"
 }
-
+<br>
+Route::post('/login', [AuthController::class, 'login']);
+<br>
+le pasaremos un body de este tipo
+{"email:"nacho@nacho.com",
+"password":"Nacho1234"}
 
 });
 Route::group([
