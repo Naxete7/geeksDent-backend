@@ -123,6 +123,7 @@ Route::group([
 ], function(){
 
     Route::post('/register', [AuthController::class, 'register']);
+<br>
 (Tendremos que pasarle un body {
   "name":"Luis",
             "surname":"Catala",
@@ -134,22 +135,26 @@ Route::group([
 
 
     Route::post('/login', [AuthController::class, 'login']);
+    <br>
 (le pasaremos email y contraseña en formato JSON 
 {
               "email":"nacho@nacho.com",
             "password":"Nacho1234"
 }
 });
+<br>
 Route::group([
     'middleware' => ['jwt.auth', 'cors']
 ], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    <br>
     Route::get('/profile', [AuthController::class, 'profile']);
 });
 
 //USERS
 
 Route::put('/updateUser', [UserController::class,'updateUser']);
+<br>
 {
             "name":"Ignacio",
             "surname":"Garcia Valero",
@@ -157,6 +162,7 @@ Route::put('/updateUser', [UserController::class,'updateUser']);
 }
 
 Route::get('/doctors', [DoctorController::class, 'doctors']);
+<br>
 Route::get('/treatments', [TreatmentController::class, 'treatments']);
 
 
