@@ -123,46 +123,19 @@ Route::group([
 ], function(){
 
     Route::post('/register', [AuthController::class, 'register']);
-<br>
-(Tendremos que pasarle un body {
-  "name":"Luis",
-            "surname":"Catala",
-             "email":"luis@luis.com",
-            "password":"luis1234",
-            "phone":"666555444"
-}
-
-
-
     Route::post('/login', [AuthController::class, 'login']);
-    <br>
-(le pasaremos email y contraseña en formato JSON 
-{
-              "email":"nacho@nacho.com",
-            "password":"Nacho1234"
-}
 });
-<br>
 Route::group([
     'middleware' => ['jwt.auth', 'cors']
 ], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    <br>
     Route::get('/profile', [AuthController::class, 'profile']);
 });
 
 //USERS
 
 Route::put('/updateUser', [UserController::class,'updateUser']);
-<br>
-{
-            "name":"Ignacio",
-            "surname":"Garcia Valero",
-            "phone":"111111111"
-}
-
 Route::get('/doctors', [DoctorController::class, 'doctors']);
-<br>
 Route::get('/treatments', [TreatmentController::class, 'treatments']);
 
 
@@ -176,21 +149,8 @@ Route::group([
     Route::delete('/deleteuser/{id}', [AdminController::class, 'deleteuser']);
     Route::get('/appointments', [AdminController::class, 'appointments']);
     Route::post('/addDoctor', [DoctorController::class, 'addDoctor']);
-{
-
-"name":"Juan Navarro",
-"especialidad":"implantes"
-
-}
-
     Route::delete('/deleteDoctor/{id}', [DoctorController::class, 'deleteDoctor']);
     Route::post('/addTreatment', [TreatmentController::class, 'addTreatment']);
-{
-
-"name":"all on 4"
-
-}
-
     Route::delete('/deleteTreatment/{id}', [TreatmentController::class, 'deleteTreatment']);
 });
 
@@ -203,20 +163,8 @@ Route::group([
    ['jwt.auth', 'cors'] 
 ], function () {
     Route::post('/addAppointment', [AppointmentController::class, 'addAppointment']);
-   // {"date":"2023-1-26",
-       //"reason":"Colocación de brackets",
-       //"doctorsId":"2",
-       //"treatmentsId":"6"}
-
-
     Route::get('/myAppointments', [AppointmentController::class, 'myAppointments']);
-    
     Route::put('/updateAppointment', [AppointmentController::class, 'updateAppointment']);
-   // {"date":"2023-1-26",
-       //"reason":"Colocación de brackets",
-       //"doctorsId":"2",
-       //"treatmentsId":"6"}
-
     Route::delete('/deleteAppointment', [AppointmentController::class, 'deleteAppointment']);
 });
 
