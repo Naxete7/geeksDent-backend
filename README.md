@@ -23,11 +23,17 @@ En este proyecto hemos realizado la parte backend de una página web de una clí
 
 La base datos la tenemos desplegada en railway, para poder acceder a ella hay que modificar el archivo .env
 Las variables son las siguientes:
+
 DB_CONNECTION=mysql
+<br>
 DB_HOST=containers-us-west-156.railway.app
+<br>
 DB_PORT=5495
+<br>
 DB_DATABASE=railway
+<br>
 DB_USERNAME=root
+<br>
 DB_PASSWORD=dHxbgad6SmlIxMZWWWkn
 
 ## :rocket: Technologies ##
