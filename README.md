@@ -204,6 +204,7 @@ Route::group([
 
 
     Route::get('/myAppointments', [AppointmentController::class, 'myAppointments']);
+    
     Route::put('/updateAppointment', [AppointmentController::class, 'updateAppointment']);
    // {"date":"2023-1-26",
        //"reason":"Colocación de brackets",
