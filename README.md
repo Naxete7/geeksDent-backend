@@ -136,9 +136,7 @@ Route::group([
             "phone":"666555444"
 }
 
-      <br>
-  
-      <br>
+
 });
 Route::group([
     'middleware' =>
