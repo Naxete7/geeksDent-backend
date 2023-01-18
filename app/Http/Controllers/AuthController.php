@@ -61,11 +61,25 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $email = $request->get('email');
+        $userExist = User::where('email', $email)
+            ->where('active', true)
+            ->get()
+            ->toArray();
+        if (count($userExist) === 0) {
+            return response()->json([
+                "success" => false,
+                "message" => 'Este email esta desactivado.'
+            ], 200);
+        }
+
         try {
             $input = $request->only('email', 'password', 'role');
+           
             $jwt_token = null;
             $email = $request->email;
             $password = $request->password;
+
             $role = $request->role;
             if (!$jwt_token = JWTAuth::attempt($input)) {
                 return response()->json([

@@ -9,9 +9,6 @@ class Treatment extends Model
 {
     use HasFactory;
 
-
-
-
     public function appointments()
     {
         return $this->belongsTo(Appointment::class);

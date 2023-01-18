@@ -10,13 +10,10 @@ class Appointment extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
     protected $fillable = [
 
         'date',
         'reason',
-        
-      
     ];
 
     public function users()

@@ -18,24 +18,21 @@ use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
-
-
     public function addAppointment(Request $request)
     {
         try {
             $date = $request->input('date');
             $reason = $request->input('reason');
             $usersId = auth()->user()->id;
-            $doctorsId= $request->input('doctorsId');
-            $treatmentsId= $request->input('treatmentsId');
-
+            $doctorsId = $request->input('doctorsId');
+            $treatmentsId = $request->input('treatmentsId');
 
             $newAppointment = new Appointment();
             $newAppointment->date = $date;
             $newAppointment->reason = $reason;
             $newAppointment->usersId = $usersId;
             $newAppointment->doctorsId = $doctorsId;
-            $newAppointment->treatmentsId=$treatmentsId;
+            $newAppointment->treatmentsId = $treatmentsId;
             $newAppointment->save();
 
             return response()->json([
@@ -85,28 +82,24 @@ class AppointmentController extends Controller
         }
     }
 
+    public function updateAppointment(Request $request, $id)
+    {
 
-    public function updateAppointment(Request $request, $id){
+        try {
+            $userId = auth()->user()->id;
+            $newDate = $request->input('date');
 
-            try{
-                $userId=auth()->user()->id;
-                $newDate=$request->input('date');
-
-
-                $updateAppointment= Appointment::where('user_id',$userId)
+            $updateAppointment = Appointment::where('user_id', $userId)
                 ->where('id', $id)
-            ->update([
-                'date' => $newDate,
-               
-            ]);
-
-            if(!$updateAppointment){
+                ->update([
+                    'date' => $newDate,
+                ]);
+            if (!$updateAppointment) {
                 return response()->json([
-                    "succes"=>true,
-                    "message"=>"La cita no existe"
-                ],404);
+                    "succes" => true,
+                    "message" => "La cita no existe"
+                ], 404);
             }
-
             return response()->json([
                 "success" => true,
                 "message" => "Cita modificada"
@@ -119,22 +112,16 @@ class AppointmentController extends Controller
         }
     }
 
-
-
-
     public function deleteAppointment($id)
     {
-
         try {
             $userId = auth()->user()->id;
             Appointment::where('user_id', $userId)
                 ->where('id', $id)
-                ->update(['cancelled'=> true]);
-
+                ->update(['cancelled' => true]);
             return response([
                 'succes' => true,
                 'message' => 'Se ha cencelado la cita correctamente',
-
             ], 200);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
@@ -144,6 +131,4 @@ class AppointmentController extends Controller
             ], 500);
         }
     }
-
-
 }
