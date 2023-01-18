@@ -9,22 +9,17 @@ use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
-
     public function users()
     {
         try {
             $users = User::get();
-        
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Usuarios recuperados con éxito',
-                    'data' => $users
-                ], 200);
-       
+            return response()->json([
+                'success' => true,
+                'message' => 'Usuarios recuperados con éxito',
+                'data' => $users
+            ], 200);
         } catch (\Throwable $th) {
-            Log::error("Error retrieving users: " . $th->getMessage());
-
+            Log::error("Error retrieving users: ");
             return response()->json([
                 'success' => true,
                 'message' => 'Los usuarios no pudieron ser recuperados'
@@ -32,40 +27,32 @@ class AdminController extends Controller
         }
     }
 
-
     public function appointments()
     {
         try {
             $appointments = Appointment::get();
-
             return response()->json([
                 'succes' => true,
                 'message' => 'Citas recuperadas con éxito',
                 'data' => $appointments
             ], 200);
         } catch (\Throwable $th) {
-
-            Log::error("Error retrieving users: " . $th->getMessage());
-
+            Log::error("Error retrieving users: ");
             return response()->json([
                 'succes' => true,
-                'message' => 'No se pudieron recuperar las citas' . $th->getMessage()
+                'message' => 'No se pudieron recuperar las citas'
             ], 500);
         }
     }
 
-
     public function deleteUser($id)
     {
         try {
-
             User::where('id', $id)
                 ->update(['active' => false]);
-
             return response([
                 'success' => true,
                 'message' => 'Se ha eliminado el ususario correctamente.'
-
             ], 200);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
