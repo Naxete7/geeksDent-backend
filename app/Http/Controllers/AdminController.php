@@ -14,21 +14,14 @@ class AdminController extends Controller
     {
         try {
             $users = User::get();
-            if (auth()->user()->role == 1) {
-
+        
 
                 return response()->json([
                     'success' => true,
                     'message' => 'Usuarios recuperados con éxito',
                     'data' => $users
                 ], 200);
-            } else {
-                return response()->json([
-
-                    'succes' => false,
-                    'message' => 'Admin es el único que puede ver todos los usuarios' 
-                ], 400);
-            }
+       
         } catch (\Throwable $th) {
             Log::error("Error retrieving users: " . $th->getMessage());
 
@@ -44,19 +37,12 @@ class AdminController extends Controller
     {
         try {
             $appointments = Appointment::get();
-            if
-            (auth()->user()->role == 1) {
-                return response()->json([
-                    'succes' => true,
-                    'message' => 'Citas recuperadas con éxito',
-                    'data' => $appointments
-                ], 200);
-            } else {
-                return response()->json([
-                    'succes' => false,
-                    'message' => 'Admin es el único que puede ver todas las citas'
-                ], 400);
-            }
+
+            return response()->json([
+                'succes' => true,
+                'message' => 'Citas recuperadas con éxito',
+                'data' => $appointments
+            ], 200);
         } catch (\Throwable $th) {
 
             Log::error("Error retrieving users: " . $th->getMessage());
@@ -89,5 +75,4 @@ class AdminController extends Controller
             ], 500);
         }
     }
-
 }
