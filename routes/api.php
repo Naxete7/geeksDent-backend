@@ -37,11 +37,10 @@ Route::group([
 ], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
+    Route::put('/updateUser', [UserController::class,'updateUser']);
 });
 
-//USERS
 
-Route::put('/updateUser', [UserController::class,'updateUser']);
 Route::get('/doctors', [DoctorController::class, 'doctors']);
 Route::get('/treatments', [TreatmentController::class, 'treatments']);
 
@@ -49,9 +48,8 @@ Route::get('/treatments', [TreatmentController::class, 'treatments']);
 //ADMIN
 Route::group([
     'middleware' =>
-    ['admin.auth', 'cors']
+    ['jwt.auth', 'admin.auth', 'cors']
 ], function () {
-    Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/users', [AdminController::class, 'users']);
     Route::delete('/deleteuser/{id}', [AdminController::class, 'deleteuser']);
     Route::get('/appointments', [AdminController::class, 'appointments']);
@@ -61,10 +59,7 @@ Route::group([
     Route::delete('/deleteTreatment/{id}', [TreatmentController::class, 'deleteTreatment']);
 });
 
-
-
 //APPOINTMENTS
-
 Route::group([
     'middleware' =>
    ['jwt.auth', 'cors'] 

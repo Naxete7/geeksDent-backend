@@ -11,18 +11,16 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
     public function register(Request $request)
-    { 
-        $email= $request->get('email');
-        $userCreate=User::where('email', $email)
-        ->where('active',false)
-        ->get()
-        ->toArray();
-
+    {
+        $email = $request->get('email');
+        $userCreate = User::where('email', $email)
+            ->where('active', false)
+            ->get()
+            ->toArray();
         $userExist = User::where('email', $email)
-        ->where('active', true)
-        ->get()
-        ->toArray();
-
+            ->where('active', true)
+            ->get()
+            ->toArray();
         if (count($userExist) === 1) {
             return response()->json([
                 "success" => false,
@@ -33,15 +31,11 @@ class AuthController extends Controller
             $user = User::query()
                 ->where('email', $email)
                 ->update(['active' => true]);
-
-
             return response()->json([
                 "success" => false,
                 "message" => 'Hemos reactivado la cuenta.'
             ], 200);
         }
-
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:25',
             'surname' => 'required|string|max:50',
@@ -49,23 +43,18 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
             'phone' => 'required|string|min:8',
         ]);
-
         if ($validator->fails()) {
             return response()->json($validator->errors()->messages(), 400);
         }
-
         $user = User::create([
             'name' => $request->get('name'),
             'surname' => $request->get('surname'),
             'email' => $request->get('email'),
             'password' => bcrypt($request->password),
-            'phone'=>$request->get('phone'),
+            'phone' => $request->get('phone'),
             'active' => true,
             'role' => 2
-
         ]);
-
-        
         $token = JWTAuth::fromUser($user);
         return response()->json(compact('user', 'token'), 201);
     }
@@ -73,27 +62,20 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-
             $input = $request->only('email', 'password', 'role');
             $jwt_token = null;
             $email = $request->email;
             $password = $request->password;
             $role = $request->role;
-
-
             if (!$jwt_token = JWTAuth::attempt($input)) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Invalid Email or Password',
                 ], Response::HTTP_UNAUTHORIZED);
             };
-                
             $user = User::where('email', $email)
-            ->get()
-            ->toArray();
-
-            //dd();
-
+                ->get()
+                ->toArray();
             return response()->json([
                 'success' => true,
                 'token' => $jwt_token,
@@ -110,15 +92,12 @@ class AuthController extends Controller
         }
     }
 
-
     public function profile()
     {
         return response()->json(auth()->user());
     }
-
     public function logout()
     {
-        
         try {
             auth()->logout();
             return response()->json([
