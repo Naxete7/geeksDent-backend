@@ -152,11 +152,8 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
      <br>
     Route::get('/profile', [AuthController::class, 'profile']);
-});
-
-//USERS
-
-Route::put('/updateUser', [UserController::class,'updateUser']);
+    <br>
+    Route::put('/updateUser', [UserController::class,'updateUser']);
  <br>
  le pasaremos un body de este tipo
  {
@@ -164,7 +161,10 @@ Route::put('/updateUser', [UserController::class,'updateUser']);
             "surname":"Garcia Valero",
             "phone":"111111111"
 }
-<br>
+});
+
+
+
 Route::get('/doctors', [DoctorController::class, 'doctors']);
  <br>
 Route::get('/treatments', [TreatmentController::class, 'treatments']);
@@ -174,7 +174,7 @@ Route::get('/treatments', [TreatmentController::class, 'treatments']);
 Route::group([
     'middleware' =>
     <br>
-    ['admin.auth', 'cors']
+    ['jwt.auth','admin.auth', 'cors']
 ],
 <br>
 function () {
