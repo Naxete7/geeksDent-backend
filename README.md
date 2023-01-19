@@ -90,9 +90,9 @@ Indicar que para poder crear las relaciones también hemos tenido que crear los 
 
 A continuacion y para empezar con los endpoints añadiremos las rutas necesarias para cada uno de los endpoints necesarios para que la aplicación sea totalmente funcional.
 
-Estas routas iran en el archivo api.php que se encuentra alojado en la carpeta routes.
+Estas rutas iran en el archivo api.php que se encuentra alojado en la carpeta routes.
 
-![rutas](https://user-images.githubusercontent.com/109297564/212437927-2cc207bb-9349-4635-97bb-d6ac6c09bf64.jpg)
+![Captura de pantalla 2023-01-19 171758](https://user-images.githubusercontent.com/109297564/213495722-05e2e193-13ec-4089-892b-491c2b2c1bfa.jpg)
 
 
 Y para poder darle funcionalIdad a cada una de estas rutas, crearemos los controllers, donde crearemos toda la lógica para poder obtener todos los endpoints
