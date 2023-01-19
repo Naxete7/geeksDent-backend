@@ -37,11 +37,11 @@ class AuthController extends Controller
             ], 200);
         }
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:25',
-            'surname' => 'required|string|max:50',
-            'email' => 'required|string|email|max:50|unique:users',
+            'name' => 'required|string|min:2|max:25',
+            'surname' => 'required|string|min:2|max:50',
+            'email' => 'required|string|email|min:2|max:50|unique:users',
             'password' => 'required|string|min:6',
-            'phone' => 'required|string|min:8',
+            'phone' => 'required|integer|min:8',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->messages(), 400);
