@@ -54,6 +54,17 @@ class DatabaseSeeder extends Seeder
 
         $user->save();
 
+        $user = new User;
+        $user->name = 'Maite';
+        $user->surname = 'Catalá';
+        $user->email = 'maite@maite.com';
+        $user->password = bcrypt('Maite1234');
+        $user->phone = '666555444';
+        $user->active = '1';
+        $user->role = '2';
+
+        $user->save();
+
         $doctor = new Doctor;
         $doctor->name = 'Juan Pedro Quiles';
         $doctor->especialidad = 'Endodoncias';
